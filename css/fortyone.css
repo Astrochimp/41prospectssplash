@@ -82,7 +82,7 @@ h3 {
     font-size:20px;
 }
 
-button {
+button, .submit-button {
     font-family: 'Oswald', sans-serif;
     font-size:28px;
     color:#ffffff;
@@ -104,7 +104,13 @@ button {
     transition: all .3s ease-in-out;
 }
 
-button:hover {
+.submit-button {
+    font-size:20px;
+    margin:10px 0px 0px 0px;
+
+}
+
+button:hover .submit-button:hover {
     color:#999999;
     background:#eeeeee;
 }
@@ -129,19 +135,62 @@ input[type=text] {
 
     border-radius: 5px !important;
     padding:10px;
+    margin:0px 0px 12px 0px !important;
 
+}
+
+input[type=text]:focus {
+
+    border:1px solid #999999;
 }
 
 textarea {
     padding:10px;
     width:300px;
-    height:250px;
+    height:175px;
 
     background:#999999 !important;
     color:#fff !important;
 
     border-radius: 5px !important;
 }
+
+textarea:focus {
+    border:1px solid #999999;
+}
+
+.submitsection {
+    width:600px;
+}
+
+
+#thankyouresponse {
+    display:none;
+    width:590px;
+    height:50px;
+    margin:5px auto 5px auto;
+}
+
+#thanks, #contactus {
+    float:right;
+}
+
+#thanks {
+    background: #000000;
+}
+
+#sendingmessage {
+    float:left;
+    width:300px;
+    height:50px;
+    text-align:right;
+
+}
+
+.errorform {
+    border:1px solid #ff9900;
+}
+
 
 *::-webkit-input-placeholder {
     color: #ffffff !important;

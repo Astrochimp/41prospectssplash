@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
     <link rel="stylesheet" href="css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link href='http://fonts.googleapis.com/css?family=Oswald|Karla:700|Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -50,26 +52,52 @@
 
         <div class="row">
             <div class="col-lg-6">
-            <form action="contact.php" method="post">
+            <form action="contact.php" method="post" id="contactform">
+                <input type="hidden" name="op" value="contact">
                 <div class="input-group">
-                    <input type="text" class="form-control" size="50" name="busname" value="" placeholder="Business Name *">
+                    <input type="text" class="form-control" size="50" name="busname" id="busname" value="" placeholder="Business Name" tabindex="1">
                 </div>
 
                 <div class="input-group">
-                    <input type="text" class="form-control" size="50" name="fullname" value="" placeholder="Your Name *">
+                    <input type="text" class="form-control" size="50" name="fullname" id="fullname" value="" placeholder="Your Name *" tabindex="2" >
                 </div>
 
                 <div class="input-group">
-                    <input type="text" class="form-control" size="50" name="emailaddress" value="" placeholder="Your Email Address *">
+                    <input type="text" class="form-control" size="50" name="emailaddress" id="emailaddress" value="" placeholder="Your Email Address *" tabindex="3" >
                 </div>
 
                 <div class="input-group">
-                    <input type="text" class="form-control" size="50" name="phonenumber" value="" placeholder="Your Phone Number *">
+                    <input type="text" class="form-control" size="50" name="phonenumber" id="phonenumber" value="" placeholder="Your Phone Number" tabindex="4">
+                </div>
+
+                <div class="input-group submitsection">
+                    <div id="thankyouresponse" class="clearfix">
+
+                        <div id="sendingmessage">
+
+                        </div>
+
+                        <button type="button" class="btn-lg" id="thanks" tabindex="6">
+                            <span class="glyphicon glyphicon-arrow-right"></span>
+                            Thank you
+                        </button>
+
+                    </div>
+
+
+                    <button type="button" class="btn-lg" id="contactus" tabindex="6">
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                        Submit
+                    </button>
+
+
+
+
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="input-group text-area">
-                    <textarea name="description" placeholder="Tells us about your project."></textarea>
+                    <textarea name="description" id="description" placeholder="Tells us about your project." tabindex="5"></textarea>
                 </div>
             </div>
 
@@ -80,5 +108,74 @@
     <footer>
 
     </footer>
+
+    <script>
+
+        $("#contactus").click(function() {
+
+
+
+                var msg = "";
+
+
+                if (!$("#emailaddress").val()) {
+
+                    msg += "Email Address Required\n";
+                    $("#emailaddress").addClass( "errorform" );
+
+                }
+
+                if (!$("#fullname").val()) {
+
+                    $("#fullname").addClass( "errorform" );
+                    msg += "Full Name is Required\n";
+
+                }
+
+                if (msg != "") {
+
+                    alert(msg);
+
+                } else {
+
+                    $("#contactus").fadeOut();
+                    var url = "contact.php";
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $("#contactform").serialize(),
+                        success: function(data)
+                        {
+                            $("#contactform").find("input[type=text], textarea").val("");
+                            $("#description").val("");
+
+                            $("#thankyouresponse").fadeIn();
+                            $("#sendingmessage").html(data);
+
+                            //alert(data);
+                        }
+                    });
+
+                    return false; // avoid to execute the actual submit of the form.
+                }
+        });
+
+
+
+    </script>
+
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-49923319-1', '41prospects.com');
+        ga('send', 'pageview');
+
+    </script>
+
 </body>
 </html>
